@@ -1,9 +1,8 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 
 const createApp = () => {
-  return require('./components/App').default;
+  return require('components/App').default;
 };
 
 const doRender = () => {
@@ -16,5 +15,5 @@ const doRender = () => {
 doRender();
 
 if (module.hot) {
-  module.hot.accept('./components/App', () => doRender());
+  module.hot.accept('components/App', () => doRender());
 }

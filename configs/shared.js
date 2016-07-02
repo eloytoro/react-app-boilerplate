@@ -23,6 +23,16 @@ module.exports = ({
     plugins: [].concat(
       plugins,
       optimize ?  new webpack.optimize.UglifyJsPlugin({compress: {warnings:false}}) : [],
+      new webpack.ProvidePlugin({
+        'Promise': 'bluebird',
+        'React': 'react',
+        '_': 'lodash'
+      }),
+      new webpack.DefinePlugin({
+        'process.env': {
+          'NODE_ENV': optimize ? '"production"' : '"development"'
+        }
+      }),
       new webpack.NoErrorsPlugin(),
       new HtmlWebpackPlugin({
         template: path.join(__dirname, '../src/index.html'),
@@ -43,6 +53,9 @@ module.exports = ({
       require('autoprefixer')({ browsers: ['last 2 versions'] }),
       require('precss')
     ],
+    resolve: {
+      modules: [path.join(__dirname, '../src'), 'node_modules']
+    },
     ...opts
   };
 };
